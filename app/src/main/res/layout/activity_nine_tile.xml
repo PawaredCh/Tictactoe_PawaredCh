@@ -624,7 +624,7 @@
             android:layout_row="6"
             android:layout_column="0"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:onClick="dropIn"
             android:tag="54" />
 
@@ -635,7 +635,7 @@
             android:layout_row="6"
             android:layout_column="1"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:onClick="dropIn"
             android:tag="55" />
 
@@ -646,7 +646,7 @@
             android:layout_row="6"
             android:layout_column="2"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:onClick="dropIn"
             android:tag="56" />
 
@@ -657,7 +657,7 @@
             android:layout_row="6"
             android:layout_column="3"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:onClick="dropIn"
             android:tag="57" />
 
@@ -668,7 +668,7 @@
             android:layout_row="6"
             android:layout_column="4"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:onClick="dropIn"
             android:tag="58" />
 
@@ -679,7 +679,7 @@
             android:layout_row="6"
             android:layout_column="5"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:onClick="dropIn"
             android:tag="59" />
 
@@ -690,7 +690,7 @@
             android:layout_row="6"
             android:layout_column="6"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:onClick="dropIn"
             android:tag="60" />
 
@@ -701,7 +701,7 @@
             android:layout_row="6"
             android:layout_column="7"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:onClick="dropIn"
             android:tag="61" />
 
@@ -712,7 +712,7 @@
             android:layout_row="6"
             android:layout_column="8"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:onClick="dropIn"
             android:tag="62" />
 

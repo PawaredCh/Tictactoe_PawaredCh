@@ -15,7 +15,7 @@ class moveslog : AppCompatActivity() {
         val showplay = findViewById<TextView>(R.id.player)
         val showmov = findViewById<TextView>(R.id.moveset)
 
-        showplay.text = play.toString().replace("[","").replace("]","")
-        showmov.text = mov.toString().replace("[","").replace("]","")
+        showplay.text = play.toString().replace("[","").replace("]","").replace(",","")
+        showmov.text = mov.toString().replace("[","").replace("]","").replace(",","")
     }
 }
