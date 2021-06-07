@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -17,7 +18,6 @@ class MainActivity : AppCompatActivity() {
     var gameIsActive = true
     var count = 0
     var text = ""
-    var turns = ""
     var turnhist = ""
     var ghist = ""
     var rhist = ""
@@ -34,7 +34,8 @@ class MainActivity : AppCompatActivity() {
     )
     val turnlist = arrayListOf<String>()
     val history = arrayListOf<String>()
-    val maphist = mutableMapOf<String,String>()
+    //val maphist = mutableMapOf<String,String>()
+    var pname = ""
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun dropIn(view: View) {
@@ -55,6 +56,10 @@ class MainActivity : AppCompatActivity() {
         //understand
         val tappedcounter = counter.tag.toString().toInt()
 
+        val sharedPreference = getSharedPreferences("playername", Context.MODE_PRIVATE)
+        val p1name = sharedPreference.getString("p1","Player one")
+        val p2name = sharedPreference.getString("p2","Player two")
+
         if (gameState[tappedcounter] == 2 && gameIsActive) {
             box.visibility = View.VISIBLE
             if (activePlayer == 1) {
@@ -62,21 +67,21 @@ class MainActivity : AppCompatActivity() {
                 activePlayer = 0
                 count++
                 gameState[tappedcounter] = 1
-                turnhist = "X"
+                turnhist = """$p1name : X"""
 
-                turns = "O player turn"
-                turn.text = turns
+                turn.text = """$p2name turn"""
                 oturn.visibility = View.VISIBLE
+                pname = p1name!!
             } else {
                 counter.setImageResource(R.drawable.o)
                 activePlayer = 1
                 count++
                 gameState[tappedcounter] = 0
-                turnhist = "O"
+                turnhist = """$p2name : O"""
 
-                turns = "X player turn"
-                turn.text = turns
+                turn.text = """$p1name turn"""
                 xturn.visibility = View.VISIBLE
+                pname = p2name!!
             }
             turnlist.add("\n"+turnhist+"\n")
             val log = findViewById<TextView>(R.id.logging)
@@ -84,23 +89,23 @@ class MainActivity : AppCompatActivity() {
             //for debug
             //log.text = tappedcounter.toString()
             if(tappedcounter == 0)
-                text =  "upper left "
+                text =  "1: upper left "
             else if(tappedcounter == 1)
-                text =  "upper center "
+                text =  "2: upper center "
             else if(tappedcounter == 2)
-                text =  "upper right "
+                text =  "3: upper right "
             else if(tappedcounter == 3)
-                text =  "center left "
+                text =  "4: center left "
             else if(tappedcounter == 4)
-                text =  "center "
+                text =  "5: center "
             else if(tappedcounter == 5)
-                text =  "center right "
+                text =  "6: center right "
             else if(tappedcounter == 6)
-                text =  "below left "
+                text =  "7: below left "
             else if(tappedcounter == 7)
-                text =  "below center "
+                text =  "8: below center "
             else if(tappedcounter == 8)
-                text =  "below right "
+                text =  "9: below right "
             history.add("\n"+text+"\n")
 
             //try to use map but failed
@@ -127,16 +132,15 @@ class MainActivity : AppCompatActivity() {
             /*for ((k,v) in maphist) {
                 log.text = maphist.toString()+"\n"
             }*/
-            log.text = turnhist + " moves to " + text
+            log.text = """ $pname moves to $text"""
 
             counter.translationY = -1500f
             counter.animate().translationYBy(1500f).rotationY(2000f).duration = 1000
             for (winningposition in winningPositions) {
                 if (gameState[winningposition[0]] == gameState[winningposition[1]] && gameState[winningposition[1]] == gameState[winningposition[2]] && gameState[winningposition[0]] != 2
                 ) {
-                    if (gameState[winningposition[0]] == 0) txt.text =
-                        "O Player Wins" else if (gameState[winningposition[0]] == 1
-                    ) txt.text = "X Player Wins"
+                    if (gameState[winningposition[0]] == 0) txt.text = """$p2name : O Wins"""
+                    else if (gameState[winningposition[0]] == 1) txt.text = """$p1name : X Wins"""
                     indicate.visibility = View.INVISIBLE
                     layout.visibility = View.VISIBLE
                     gameIsActive = false
@@ -175,12 +179,18 @@ class MainActivity : AppCompatActivity() {
         for (i in 0 until gridLayout.childCount) {
             (gridLayout.getChildAt(i) as ImageView).setImageResource(0) //p t n
         }
-        maphist.clear()
+        //maphist.clear()
         log.text = ""
     }
 
     protected override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val sharedPreference = getSharedPreferences("playername", Context.MODE_PRIVATE)
+        val p1name = sharedPreference.getString("p1","Player one")
+
+        val firstturn = findViewById<TextView>(R.id.turn)
+        firstturn.text = """$p1name turn"""
     }
 }

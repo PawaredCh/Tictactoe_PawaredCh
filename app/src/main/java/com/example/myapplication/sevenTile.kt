@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +28,7 @@ class sevenTile : AppCompatActivity() {
 
     val turnlist = arrayListOf<String>()
     val history = arrayListOf<String>()
+    var pname = ""
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun dropIn(view: View) {
@@ -87,6 +89,10 @@ class sevenTile : AppCompatActivity() {
         val tappedcounter = counter.tag.toString().toInt()
         val log = findViewById<TextView>(R.id.logging)
 
+        val sharedPreference = getSharedPreferences("playername", Context.MODE_PRIVATE)
+        val p1name = sharedPreference.getString("p1","Player one")
+        val p2name = sharedPreference.getString("p2","Player two")
+
         if (gameState[tappedcounter] == 2 && gameIsActive) {
             box.visibility = View.VISIBLE
             if (activePlayer == 1) {
@@ -94,27 +100,29 @@ class sevenTile : AppCompatActivity() {
                 activePlayer = 0
                 count++
                 gameState[tappedcounter] = 1
-                turnhist = "X"
-                turns = "O player turn"
-                turn.text = turns
+                turnhist = """$p1name : X"""
+
+                turn.text = """$p2name turn"""
                 oturn.visibility = View.VISIBLE
+                pname = p1name!!
             } else {
                 counter.setImageResource(R.drawable.o)
                 activePlayer = 1
                 count++
                 gameState[tappedcounter] = 0
-                turnhist = "O"
-                turns = "X player turn"
-                turn.text = turns
+                turnhist = """$p2name : O"""
+
+                turn.text = """$p1name turn"""
                 xturn.visibility = View.VISIBLE
+                pname = p2name!!
             }
             turnlist.add("\n"+turnhist+"\n")
 
             //for debug
             //log. text = tappedcounter.toString()
-            text = tappedcounter.toString()
+            text = (tappedcounter+1).toString()
             history.add("\n"+text+"\n")
-            log.text = turnhist + " moves to " + text
+            log.text = """ $pname moves to $text"""
 
             counter.translationY = -1500f
             counter.animate().translationYBy(1500f).rotationY(2000f).duration = 1000
@@ -126,10 +134,8 @@ class sevenTile : AppCompatActivity() {
                     && gameState[winningposition[3]] == gameState[winningposition[4]]
                     && gameState[winningposition[0]] != 2
                 ) {
-                    if (gameState[winningposition[0]] == 0)
-                        txt.text = "O Player Wins"
-                    else if (gameState[winningposition[0]] == 1)
-                        txt.text = "X Player Wins"
+                    if (gameState[winningposition[0]] == 0) txt.text = """$p2name : O Wins"""
+                    else if (gameState[winningposition[0]] == 1) txt.text = """$p1name : X Wins"""
 
                     indicate.visibility = View.INVISIBLE
                     layout.visibility = View.VISIBLE
@@ -347,6 +353,12 @@ test.text = gamestate.toString()
 override fun onCreate(savedInstanceState: Bundle?) {
    super.onCreate(savedInstanceState)
    setContentView(R.layout.activity_seven_tile)
+
+    val sharedPreference = getSharedPreferences("playername", Context.MODE_PRIVATE)
+    val p1name = sharedPreference.getString("p1","Player one")
+
+    val firstturn = findViewById<TextView>(R.id.turn)
+    firstturn.text = """$p1name turn"""
 }
 
 }
