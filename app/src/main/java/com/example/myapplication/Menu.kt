@@ -16,6 +16,10 @@ class Menu : AppCompatActivity() {
         val p2name = findViewById<EditText>(R.id.playertwo).text
         val spinner = findViewById<Spinner>(R.id.select)
         val start = findViewById<ImageButton>(R.id.start)
+        val random = findViewById<Button>(R.id.random)
+
+        var board = ""
+        var rand = 0
 
         val sharedPreference = getSharedPreferences("playername", Context.MODE_PRIVATE)
         var editor = sharedPreference.edit()
@@ -33,56 +37,14 @@ class Menu : AppCompatActivity() {
                     parent: AdapterView<*>,
                     view: View, position: Int, id: Long
                 ) {
-
-                    if (box[position] == "4*4") {
-                        val intent = Intent(this@Menu, fourTile::class.java)
-                        editor.putString("p1", p1name.toString())
-                        editor.putString("p2", p2name.toString())
-                        editor.commit()
-                        startActivity(intent)
-                    }
-                    if (box[position] == "5*5") {
-                        val intent = Intent(this@Menu, five_tile::class.java)
-                        editor.putString("p1", p1name.toString())
-                        editor.putString("p2", p2name.toString())
-                        editor.commit()
-                        startActivity(intent)
-                    }
-                    if (box[position] == "6*6") {
-                        val intent = Intent(this@Menu, sixTile::class.java)
-                        editor.putString("p1", p1name.toString())
-                        editor.putString("p2", p2name.toString())
-                        editor.commit()
-                        startActivity(intent)
-                    }
-                    if (box[position] == "7*7") {
-                        val intent = Intent(this@Menu, sevenTile::class.java)
-                        editor.putString("p1", p1name.toString())
-                        editor.putString("p2", p2name.toString())
-                        editor.commit()
-                        startActivity(intent)
-                    }
-                    if (box[position] == "8*8") {
-                        val intent = Intent(this@Menu, eightTile::class.java)
-                        editor.putString("p1", p1name.toString())
-                        editor.putString("p2", p2name.toString())
-                        editor.commit()
-                        startActivity(intent)
-                    }
-                    if (box[position] == "9*9") {
-                        val intent = Intent(this@Menu, nineTile::class.java)
-                        editor.putString("p1", p1name.toString())
-                        editor.putString("p2", p2name.toString())
-                        editor.commit()
-                        startActivity(intent)
-                    }
-                    if (box[position] == "10*10") {
-                        val intent = Intent(this@Menu, tenTile::class.java)
-                        editor.putString("p1", p1name.toString())
-                        editor.putString("p2", p2name.toString())
-                        editor.commit()
-                        startActivity(intent)
-                    }
+                    if (box[position] == "3*3") board = "3"
+                    if (box[position] == "4*4") board = "4"
+                    if (box[position] == "5*5") board = "5"
+                    if (box[position] == "6*6") board = "6"
+                    if (box[position] == "7*7") board = "7"
+                    if (box[position] == "8*8") board = "8"
+                    if (box[position] == "9*9") board = "9"
+                    if (box[position] == "10*10") board = "10"
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -94,84 +56,76 @@ class Menu : AppCompatActivity() {
                 }
             }
         }
+        random.setOnClickListener() {
+            rand = (3 until 11).shuffled().last()
+            rand = rand
+            val test = findViewById<TextView>(R.id.textView)
+            test.text = """randomized board size is $rand"""
+        }
 
         start.setOnClickListener() {
 
             if (p1name.isEmpty() || p2name.isEmpty()){
                 Toast.makeText(applicationContext, "Please enter both player name", Toast.LENGTH_SHORT)
                     .show()
-            }
-            else {
+            }else{
+
+            if (board == "3" || rand == 3) {
                 val intent = Intent(this@Menu, MainActivity::class.java)
                 editor.putString("p1", p1name.toString())
                 editor.putString("p2", p2name.toString())
                 editor.commit()
                 startActivity(intent)
             }
-
-        }
-
-        val random = findViewById<Button>(R.id.random)
-
-        random.setOnClickListener() {
-
-            val rand = (3 until 10).shuffled().last()
-
-            if (rand == 3) {
-                val intent = Intent(this@Menu, MainActivity::class.java)
-                editor.putString("p1", p1name.toString())
-                editor.putString("p2", p2name.toString())
-                editor.commit()
-                startActivity(intent)
-            }
-            if (rand == 4) {
+            if (board == "4" || rand == 4){
                 val intent = Intent(this@Menu, fourTile::class.java)
                 editor.putString("p1", p1name.toString())
                 editor.putString("p2", p2name.toString())
                 editor.commit()
                 startActivity(intent)
             }
-            if (rand == 5) {
+            if(board == "5" || rand == 5){
                 val intent = Intent(this@Menu, five_tile::class.java)
                 editor.putString("p1", p1name.toString())
                 editor.putString("p2", p2name.toString())
                 editor.commit()
                 startActivity(intent)
             }
-            if (rand == 6) {
+            if(board == "6" || rand == 6){
                 val intent = Intent(this@Menu, sixTile::class.java)
                 editor.putString("p1", p1name.toString())
                 editor.putString("p2", p2name.toString())
                 editor.commit()
                 startActivity(intent)
             }
-            if (rand == 7) {
+            if(board == "7" || rand == 7){
                 val intent = Intent(this@Menu, sevenTile::class.java)
                 editor.putString("p1", p1name.toString())
                 editor.putString("p2", p2name.toString())
                 editor.commit()
                 startActivity(intent)
             }
-            if (rand == 8) {
+            if(board == "8" || rand == 8){
                 val intent = Intent(this@Menu, eightTile::class.java)
                 editor.putString("p1", p1name.toString())
                 editor.putString("p2", p2name.toString())
                 editor.commit()
                 startActivity(intent)
             }
-            if (rand == 9) {
+            if(board == "9" || rand == 9){
                 val intent = Intent(this@Menu, nineTile::class.java)
                 editor.putString("p1", p1name.toString())
                 editor.putString("p2", p2name.toString())
                 editor.commit()
                 startActivity(intent)
             }
-            if (rand == 10) {
+            if(board == "10" || rand == 10) {
                 val intent = Intent(this@Menu, tenTile::class.java)
                 editor.putString("p1", p1name.toString())
                 editor.putString("p2", p2name.toString())
                 editor.commit()
                 startActivity(intent)
+            }
             }
         }
 
